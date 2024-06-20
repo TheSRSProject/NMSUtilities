@@ -1,0 +1,5 @@
+rootProject.name = "NMSUtilities"
+
+include 'common'
+include 'v1_20_R1'
+include 'main'
