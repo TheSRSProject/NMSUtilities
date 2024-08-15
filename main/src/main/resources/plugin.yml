@@ -1,5 +1,0 @@
-name: NMSUtilities
-version: '${version}'
-main: snw.srs.nmsutilities.NMSUtilitiesPlugin
-api-version: '1.20'
-authors: [SNWCreations]
