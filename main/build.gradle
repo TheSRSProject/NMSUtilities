@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'java-library'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
@@ -21,8 +22,8 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
 
-    implementation project(":common")
-    implementation project(path: ":v1_20_R1", configuration: "reobf")
+    api project(":common")
+    api project(path: ":v1_20_R1", configuration: "reobf")
 }
 
 def targetJavaVersion = 17
