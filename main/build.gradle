@@ -49,3 +49,15 @@ tasks.withType(JavaCompile).configureEach {
 tasks.build {
     dependsOn shadowJar
 }
+
+publishing {
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}

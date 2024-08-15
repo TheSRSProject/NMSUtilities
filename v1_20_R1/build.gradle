@@ -21,3 +21,15 @@ dependencies {
 // this line fixed the critical issue provided by paperweight-userdev
 // we can't let Gradle found the remapped JAR without this line!
 reobfJar.dependsOn jar
+
+publishing {
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
