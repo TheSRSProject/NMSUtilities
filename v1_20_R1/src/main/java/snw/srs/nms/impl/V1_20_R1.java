@@ -90,7 +90,7 @@ public class V1_20_R1 implements NMSUtilitiesAdapter {
     // Paper returns their version of PlayerProfile which could break our code
     // on server implementations that not implement Paper API.
     private PlayerProfile getPlayerProfile(Player player) {
-        ServerPlayer handle = ((CraftPlayer) player).getHandle();
+        ServerPlayer handle = toNMSPlayer(player);
         GameProfile profileHandle = handle.getGameProfile();
         return new CraftPlayerProfile(profileHandle); // CraftBukkit version, not Paper
     }
