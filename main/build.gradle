@@ -24,7 +24,7 @@ dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
 
     api project(":common")
-    api project(path: ":v1_20_R1", configuration: "reobf")
+    implementation project(path: ":v1_20_R1", configuration: "reobf")
 }
 
 def targetJavaVersion = 17
