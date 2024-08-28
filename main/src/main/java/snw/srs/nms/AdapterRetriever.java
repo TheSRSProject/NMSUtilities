@@ -41,8 +41,4 @@ public final class AdapterRetriever {
             throw new IllegalStateException("Cannot parse version String '%s'".formatted(text));
         }
     }
-
-    // Note for API users: You should catch ExceptionInInitializerError
-    public static void init() {
-    }
 }
