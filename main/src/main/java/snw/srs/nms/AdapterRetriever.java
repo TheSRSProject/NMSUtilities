@@ -3,6 +3,7 @@ package snw.srs.nms;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import snw.srs.nms.impl.V1_20_R1;
+import snw.srs.nms.v1_16_R3.V1_16_R3;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,12 +23,13 @@ public final class AdapterRetriever {
         Server server = Bukkit.getServer();
         String version = server.getVersion();
         MINECRAFT_VERSION = extractVersion(version);
+        // For forks:
         // The switch statement must have at least 1 result
         // Don't forget to add the adapter NEW statements there if you supported more version
         // Your plugin may support multiple Minecraft version
-        // noinspection SwitchStatementWithTooFewBranches
         ADAPTER = switch (MINECRAFT_VERSION) {
             case "1.20.1" -> new V1_20_R1();
+            case "1.16.5" -> new V1_16_R3();
             default -> throw new IllegalStateException("Unsupported Minecraft version: " + MINECRAFT_VERSION);
         };
     }
