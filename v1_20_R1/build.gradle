@@ -24,7 +24,7 @@ reobfJar.dependsOn jar
 
 publishing {
     publications {
-        myLibrary(MavenPublication) {
+        v1_20_R1(MavenPublication) {
             from components.java
             artifact reobfJar.outputJar
         }
