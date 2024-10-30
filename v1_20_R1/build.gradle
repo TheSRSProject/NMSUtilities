@@ -18,7 +18,7 @@ dependencies {
     paperweight.paperDevBundle("1.20.1-R0.1-SNAPSHOT")
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = project.java_version as int
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

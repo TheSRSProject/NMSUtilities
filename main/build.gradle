@@ -28,7 +28,7 @@ dependencies {
     implementation project(":v1_16_R3")
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = project.java_version as int
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
