@@ -2,8 +2,9 @@ package snw.srs.nms;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import snw.srs.nms.impl.V1_16_R3;
 import snw.srs.nms.impl.V1_20_R1;
-import snw.srs.nms.v1_16_R3.V1_16_R3;
+import snw.srs.nms.impl.V1_21_R3;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +29,7 @@ public final class AdapterRetriever {
         // Don't forget to add the adapter NEW statements there if you supported more version
         // Your plugin may support multiple Minecraft version
         ADAPTER = switch (MINECRAFT_VERSION) {
+            case "1.21.4" -> new V1_21_R3();
             case "1.20.1" -> new V1_20_R1();
             case "1.16.5" -> new V1_16_R3();
             default -> throw new IllegalStateException("Unsupported Minecraft version: " + MINECRAFT_VERSION);

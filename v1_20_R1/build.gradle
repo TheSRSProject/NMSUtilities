@@ -2,7 +2,7 @@ plugins {
     id 'java'
     // Check for new versions at
     // https://plugins.gradle.org/plugin/io.papermc.paperweight.userdev
-    id("io.papermc.paperweight.userdev") version "1.7.1"
+    id("io.papermc.paperweight.userdev")
     id 'maven-publish'
 }
 

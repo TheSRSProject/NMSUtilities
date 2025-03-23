@@ -1,6 +1,8 @@
 plugins {
     id 'java'
-    id 'java-library'
+    // Check for new versions at
+    // https://plugins.gradle.org/plugin/io.papermc.paperweight.userdev
+    id("io.papermc.paperweight.userdev")
     id 'maven-publish'
 }
 
@@ -9,26 +11,14 @@ version = parent.version
 
 repositories {
     mavenCentral()
-    maven {
-        name = "spigotmc-repo"
-        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
-    }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/groups/public/"
-    }
 }
 
 dependencies {
-    compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
-
-    api project(":common")
-    implementation project(path: ":v1_21_R3", configuration: "reobf")
-    implementation project(path: ":v1_20_R1", configuration: "reobf")
-    implementation project(":v1_16_R3")
+    compileOnly project(":common")
+    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
 }
 
-def targetJavaVersion = Integer.parseInt(project.java_version)
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -41,16 +31,22 @@ java {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    options.compilerArgs << "-parameters"
 
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         options.release.set(targetJavaVersion)
     }
 }
 
+// this line fixed the critical issue provided by paperweight-userdev
+// we can't let Gradle found the remapped JAR without this line!
+reobfJar.dependsOn jar
+
 publishing {
     publications {
-        myLibrary(MavenPublication) {
+        v1_21_R3(MavenPublication) {
             from components.java
+            artifact reobfJar.outputJar
         }
     }
 

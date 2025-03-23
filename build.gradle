@@ -1,2 +1,8 @@
+plugins {
+    // Check for new versions at
+    // https://plugins.gradle.org/plugin/io.papermc.paperweight.userdev
+    id("io.papermc.paperweight.userdev") version "2.0.0-SNAPSHOT" apply false
+}
+
 group = "snw.srs.nms"
 version = "0.1.0"

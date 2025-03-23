@@ -1,6 +1,16 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            url = "https://repo.papermc.io/repository/maven-public/"
+        }
+    }
+}
+
 rootProject.name = "NMSUtilities"
 
 include 'common'
+include 'v1_21_R3'
 include 'v1_20_R1'
 include 'v1_16_R3'
 include 'main'
