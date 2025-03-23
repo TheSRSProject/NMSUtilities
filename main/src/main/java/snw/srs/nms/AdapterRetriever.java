@@ -2,10 +2,9 @@ package snw.srs.nms;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
-import snw.srs.nms.impl.V1_16_R3;
-import snw.srs.nms.impl.V1_20_R1;
-import snw.srs.nms.impl.V1_21_R3;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,16 +23,27 @@ public final class AdapterRetriever {
         Server server = Bukkit.getServer();
         String version = server.getVersion();
         MINECRAFT_VERSION = extractVersion(version);
+        // TODO [DO NOT REMOVE] Check for every commit we made for supporting a certain MC version
         // For forks:
-        // The switch statement must have at least 1 result
-        // Don't forget to add the adapter NEW statements there if you supported more version
-        // Your plugin may support multiple Minecraft version
-        ADAPTER = switch (MINECRAFT_VERSION) {
-            case "1.21.4" -> new V1_21_R3();
-            case "1.20.1" -> new V1_20_R1();
-            case "1.16.5" -> new V1_16_R3();
-            default -> throw new IllegalStateException("Unsupported Minecraft version: " + MINECRAFT_VERSION);
-        };
+        // Don't forget to add the MC version -> CB package mapping there
+        //  if you will support more version
+        final Map<String, String> supportedVersions = Map.of(
+                "1.21.4", "V1_21_R3",
+                "1.20.1", "V1_20_R1",
+                "1.16.5", "V1_16_R3"
+        );
+        final String versionWeAreOn = supportedVersions.get(MINECRAFT_VERSION);
+        if (versionWeAreOn == null) {
+            throw new IllegalStateException("Unknown Minecraft version: " + MINECRAFT_VERSION);
+        }
+        final String packageName = AdapterRetriever.class.getPackageName();
+        final String adapterClassName = packageName + ".impl." + versionWeAreOn;
+        try {
+            ADAPTER = (NMSUtilitiesAdapter) Class.forName(adapterClassName).getConstructor().newInstance();
+        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
+            throw new IllegalStateException("Unsupported environment", e);
+        }
     }
 
     private static String extractVersion(String text) {
