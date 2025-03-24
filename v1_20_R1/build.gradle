@@ -38,15 +38,13 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
-// this line fixed the critical issue provided by paperweight-userdev
-// we can't let Gradle found the remapped JAR without this line!
-reobfJar.dependsOn jar
-
 publishing {
     publications {
         v1_20_R1(MavenPublication) {
             from components.java
-            artifact reobfJar.outputJar
+            artifact(reobfJar.outputJar) {
+                classifier = 'reobf'
+            }
         }
     }
 
