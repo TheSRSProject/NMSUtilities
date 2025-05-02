@@ -2,7 +2,6 @@ package snw.srs.nms.impl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.mojang.authlib.GameProfile;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
@@ -90,8 +89,6 @@ public class V1_20_R1 implements NMSUtilitiesAdapter {
     // Paper returns their version of PlayerProfile which could break our code
     // on server implementations that not implement Paper API.
     private PlayerProfile getPlayerProfile(Player player) {
-        ServerPlayer handle = toNMSPlayer(player);
-        GameProfile profileHandle = handle.getGameProfile();
-        return new CraftPlayerProfile(profileHandle); // CraftBukkit version, not Paper
+        return new CraftPlayerProfile(((CraftPlayer) player).getProfile()); // CraftBukkit version, not Paper
     }
 }
