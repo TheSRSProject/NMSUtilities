@@ -33,7 +33,7 @@ public class V1_20_R1 implements NMSUtilitiesAdapter {
     }
 
     private ServerPlayer toNMSPlayer(Player player) {
-        return ((CraftPlayer) player).getHandle();
+        return (ServerPlayer) ((CraftPlayer) player).getHandleRaw();
     }
 
     private void sendPacket(Player player, Packet<ClientGamePacketListener> packet) {
